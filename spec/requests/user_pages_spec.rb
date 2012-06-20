@@ -8,10 +8,13 @@ describe "User pages" do
 
     let(:user) { FactoryGirl.create(:user) }
 
-    before do
+    before(:all) { 30.times { FactoryGirl.create(:user) } }
+    after(:all)  { User.delete_all }
+
+    before(:each) do
       sign_in user
       visit users_path
-    end
+    end    
 
     it { should have_selector('title', text: 'All users') }
     it { should have_selector('h1',    text: 'All users') }    
@@ -44,8 +47,8 @@ describe "User pages" do
         end
         it { should_not have_link('delete', href: user_path(admin)) }
       end
-    end
-  end     
+    end     
+  end
 
   describe "signup page" do
     before { visit signup_path }

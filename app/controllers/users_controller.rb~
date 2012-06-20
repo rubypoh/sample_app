@@ -8,7 +8,11 @@ class UsersController < ApplicationController
   end
   
   def new
+    if signed_in?
+    redirect_to root_path
+    else
     @user = User.new
+    end
   end
 
   def index
@@ -17,12 +21,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-       sign_in @user
-       flash[:success] = "Welcome to the Sample App!"
-       redirect_to @user
-    else
-      render 'new'
+      if @user.save
+         sign_in @user
+         flash[:success] = "Welcome to the Sample App!"
+         redirect_to @user
+      else
+        render 'new'
     end
   end
 
@@ -57,5 +61,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
+    end    
+
+  def admin_user
+      redirect_to(root_path) unless current_user.admin?
     end    
 end
