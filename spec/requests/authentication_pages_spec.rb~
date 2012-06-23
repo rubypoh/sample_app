@@ -44,7 +44,7 @@ describe "Authentication" do
 
         describe "submitting to the create action" do
           before { post users_path }
-          specify { response.should redirect_to(user_path(user)) }
+          specify { response.should redirect_to(root_path) }
         end
 
       describe "followed by signout" do
@@ -141,14 +141,25 @@ describe "Authentication" do
 
     describe "as non-admin user" do
       let(:user) { FactoryGirl.create(:user) }
-      let(:non_admin) { FactoryGirl.create(:user) }
+      let(:nonadmin) { FactoryGirl.create(:user) }
 
-      before { sign_in non_admin }
+      before { sign_in user }
 
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
         specify { response.should redirect_to(root_path) }        
       end
     end
-  end  
-end
+
+    describe "as an admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+     
+      before { sign_in admin }
+     
+      describe "submitting a DELETE request to the Admins#destroy action" do
+        before { delete user_path(admin) }
+        specify { response.should_not change(User, :count) }        
+      end
+    end
+  end
+end  
