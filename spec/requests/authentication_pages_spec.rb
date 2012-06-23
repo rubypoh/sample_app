@@ -42,6 +42,11 @@ describe "Authentication" do
 
       it { should_not have_link('Sign in', href: signin_path) }
 
+        describe "submitting to the create action" do
+          before { post users_path }
+          specify { response.should redirect_to(root_path) }
+        end
+
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
