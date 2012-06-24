@@ -1,0 +1,16 @@
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+      <section>
+      <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <%= render 'shared/micropost_form' %>
+      <span class="countdown"></span>      
+      </section>
+    </aside>    
+    <div class="span8">
+      <h3>Micropost Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+  </div> 

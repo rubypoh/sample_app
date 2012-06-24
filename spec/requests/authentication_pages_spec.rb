@@ -137,6 +137,11 @@ describe "Authentication" do
         before { put user_path(wrong_user) }
         specify { response.should redirect_to(root_path) }
       end
+
+      describe "should not have micropost delete links" do
+        before { visit user_path(wrong_user) }
+	it { should_not have_link('delete', href: user_path(wrong_user)) }
+      end
     end  
 
     describe "as non-admin user" do
