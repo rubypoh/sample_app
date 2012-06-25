@@ -4,7 +4,9 @@
         <%= render 'shared/user_info' %>
       </section>
       <section>
-        <%= render 'shared/micropost_form' %>
+      <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+      <%= render 'shared/micropost_form' %>
+      <span class="countdown"></span>      
       </section>
     </aside>    
     <div class="span8">
