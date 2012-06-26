@@ -180,6 +180,7 @@ describe User do
         followed_user.microposts.each do |micropost|
           should include(micropost)
         end      
+      end
     end
   end
 
