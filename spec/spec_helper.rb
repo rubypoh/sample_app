@@ -20,7 +20,7 @@ Spork.prefork do
   Rspec.configure do |config|
    # == Mock Framework
    #
-   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:   # 
+   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:   #
    # config.mock_with :mocha
    # config.mock_with :flexmock
    # config.mock_with :rr
@@ -33,6 +33,8 @@ Spork.prefork do
    # examples within a transaction, remove the following line or assign false
    # instead of true.
     config.use_transactional_fixtures = true
+    config.include(MailerMacros)
+    config.before(:each) { reset_email }
 
    # If true, the base class of anonymous controllers will be inferred
    # automatically. This will be the default behavior in future versions of

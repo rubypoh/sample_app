@@ -4,17 +4,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if signed_in? && not_admin?
-    redirect_to root_path
-    else
     user = User.find_by_email(params[:session][:email])
       if user && user.authenticate(params[:session][:password])
+	if params[:remember_me]
+        cookies.permanent[:auth_token] = user.auth_token
+        else
+        cookies[:auth_token] = user.auth_token
+        end   
         sign_in user
         redirect_back_or user
       else
         flash.now[:error] = 'Invalid email/password combination'
         render 'new'
-      end
     end
   end
 
